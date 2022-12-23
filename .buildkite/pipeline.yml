@@ -1,5 +1,8 @@
+env:
+  USER: root
 steps:
   - label: ":docker: :hammer:"
+    # command: "bats --version"
     plugins:
       docker-compose#v4.5.0:
         run: tests
