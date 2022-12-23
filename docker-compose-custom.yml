@@ -1,0 +1,12 @@
+version: '2'
+services:
+  tests:
+    build: .
+    volumes:
+      - "./tests/test-plugin:/plugin"
+  latest:
+    build: .
+    image: frankpengau/plugin-tester:latest
+  tag:
+    build: .
+    image: "frankpengau/buildkite-plugin-tester:bats-latest-no-faccessat2"
