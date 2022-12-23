@@ -4,5 +4,5 @@ steps:
   - label: ":docker: :hammer:"
     # command: "bats --version"
     plugins:
-      docker-compose#v4.5.0:
+      docker-compose#v4.9.0:
         run: tests
