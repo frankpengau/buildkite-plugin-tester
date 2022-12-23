@@ -52,8 +52,9 @@ References:
 - Arch Linux Bug Report: https://bugs.archlinux.org/index.php?do=details&task_id=69563
 - PR raised for faccessat2 issue: https://github.com/opencontainers/runc/pull/2750
 - Issue raised for faccessat2 issue: https://github.com/opencontainers/runc/issues/2151
-- BATS-core issue raised for /tmp not writable: https://github.com/bats-core/bats-core/issues/564
+- IMPORTANT READ - BATS-core issue raised for /tmp not writable: https://github.com/bats-core/bats-core/issues/564
 - Docker page for seccomp: https://docs.docker.com/engine/security/seccomp/
 - Default Docker seccomp profile: https://github.com/moby/moby/blob/master/profiles/seccomp/default.json
+- bats/bats docker hub image - tagged with latest-no-faccessat2 (v1.8.2): https://hub.docker.com/layers/bats/bats/latest-no-faccessat2/images/sha256-ab8b147d6fd604a25872580db473a61d446370af00addfe0a0d8b4394eae0f6b?context=explore
 
 
