@@ -30,13 +30,19 @@ docker logout
 
 # NOTES
 ## Issues
-### `faccessat2` sys call returning a `EPERM` error code instead of `ENOSYS` error code.
+### Error: BATS_TMPDIR (/tmp) is not writable🚨 Error: The command exited with status 1
+#### `faccessat2` sys call returning a `EPERM` error code instead of `ENOSYS` error code.
 
 More specifically, `Linux 5.8` (release 5.8.18) released on 02 August 2020, introduced `faccessat2` sys call, which was then implemented in `glibc` (GNU C Library) (glibc 2.33), which returned different error codes: `EPERM` (139 - The operation is not permitted.), instead of `ENOSYS` (134 - The function is not implemented.).
 
 `libseccomp` and `runc` which use `glibc` were affected and hence, this affected `moby` and therefore, `Docker`.
 
-Ultimately, in our use case, this affected us in accessing the default `BATS_TMPDIR` directory: `/tmp`, as we are doing `dind (docker in docker)`, when using the `buildkite-plugins/docker-buildkite-plugin` to do containerised builds with the `buildkite-plugins/buildkite-plugin-tester` image. 
+Paraphrased from Docker page: 
+>`seccomp` (Secure Computing mode) is a linux kernel feature, which is used to restrict actions within the container. The seccomp() system call operates on the seccomp state of the calling process, to restrict your application's access. Default seccomp profile disables around 44 system calls out of 300+. 
+
+Just a side note, upon further investigation it seems like the restrictive seccomp filter was causing access problems which then led to returning `EPERM` instead of `ENOSYS`. 
+
+Ultimately, in our use case, this affected us in accessing the default `BATS_TMPDIR` directory: `/tmp` (`Error: BATS_TMPDIR (/tmp) is not writable🚨 Error: The command exited with status 1`), as we are doing `dind (docker in docker)`, when using the `buildkite-plugins/docker-buildkite-plugin` to do containerised builds with the `buildkite-plugins/buildkite-plugin-tester` image. 
 
 References:
 - Error Code Guide: https://www.ibm.com/docs/en/zos/2.5.0?topic=codes-return-errnos
@@ -44,4 +50,10 @@ References:
 - Initial faccessat2 change for glibc: https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=1cfb4715288845ebc55ad664421b48b32de9599c
 - Follow up faccessat2 change for glibc: https://sourceware.org/git/?p=glibc.git;a=commitdiff;h=3d3ab573a5f3071992cbc4f57d50d1d29d55bde2
 - Arch Linux Bug Report: https://bugs.archlinux.org/index.php?do=details&task_id=69563
-- Very detailed github issue raised for faccessat2 issue: https://github.com/opencontainers/runc/pull/2750
+- PR raised for faccessat2 issue: https://github.com/opencontainers/runc/pull/2750
+- Issue raised for faccessat2 issue: https://github.com/opencontainers/runc/issues/2151
+- BATS-core issue raised for /tmp not writable: https://github.com/bats-core/bats-core/issues/564
+- Docker page for seccomp: https://docs.docker.com/engine/security/seccomp/
+- Default Docker seccomp profile: https://github.com/moby/moby/blob/master/profiles/seccomp/default.json
+
+
