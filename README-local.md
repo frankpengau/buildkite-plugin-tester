@@ -162,4 +162,13 @@ IMAGE          CREATED          CREATED BY                                      
         failed to solve: rpc error: code = Unknown desc = failed to solve with frontend dockerfile.v0: failed to create LLB definition: rpc error: code = Unknown desc = error getting credentials - err: exit status 1, out: ``
         ```
     - Dockerfile Frontend
-- 
+- Dockerfile Frontend: https://docs.docker.com/build/buildkit/dockerfile-frontend/
+    - Docker Hub for Dockerfile Frontend: https://hub.docker.com/r/docker/dockerfile
+        ```
+        # syntax=docker/dockerfile:1
+        ```
+        To use the external frontend, the first line of your Dockerfile needs to be `# syntax=docker/dockerfile:1`.
+- Github issues that seem similar:
+    - https://github.com/docker/buildx/issues/415
+- Docker Forums:
+    - https://forums.docker.com/t/unable-to-build-my-docker-image/120530/3
