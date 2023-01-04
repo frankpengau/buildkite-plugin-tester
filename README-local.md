@@ -85,6 +85,81 @@ Manifests:
   Platform:  linux/arm/v6
 ```
 
+## Checking Docker Image History (Layers?)
+```
+➜  buildkite-plugin-tester git:(bats-1-8-2-no-faccessat-multi-arch-sha-docker-buildx) docker image history frankpengau/buildkite-plugin-tester:bats-1-8-2-no-faccessat2-multi-arch-sha-docker-buildx
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+3e61da64bdc3   32 minutes ago   CMD ["bats" "tests/"]                           0B        buildkit.dockerfile.v0
+<missing>      32 minutes ago   ENTRYPOINT []                                   0B        buildkit.dockerfile.v0
+<missing>      32 minutes ago   WORKDIR /plugin                                 0B        buildkit.dockerfile.v0
+<missing>      32 minutes ago   ENV BATS_PLUGIN_PATH=/usr/local/lib/bats        0B        buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c if [[ -e /bin/bash ]]; then e…   0B        buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   152kB     buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   24.8kB    buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   104kB     buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   34.7kB    buildkit.dockerfile.v0
+<missing>      32 minutes ago   RUN /bin/sh -c apk --no-cache add ncurses cu…   2.55MB    buildkit.dockerfile.v0
+<missing>      2 months ago     ENTRYPOINT ["/tini" "--" "bash" "bats"]         0B        buildkit.dockerfile.v0
+<missing>      2 months ago     WORKDIR /code/                                  0B        buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   0B        buildkit.dockerfile.v0
+<missing>      2 months ago     COPY . /opt/bats/ # buildkit                    486kB     buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   18B       buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   34.7MB    buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   2.34MB    buildkit.dockerfile.v0
+<missing>      2 months ago     COPY ./docker /tmp/docker # buildkit            7.35kB    buildkit.dockerfile.v0
+<missing>      2 months ago     ARG TARGETPLATFORM                              0B        buildkit.dockerfile.v0
+<missing>      2 months ago     ARG TINI_VERSION=v0.19.0                        0B        buildkit.dockerfile.v0
+<missing>      20 months ago    /bin/sh -c #(nop)  CMD ["bash"]                 0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B        
+<missing>      20 months ago    /bin/sh -c #(nop) COPY file:651b3bebeba8be91…   212B      
+<missing>      20 months ago    /bin/sh -c set -eux;   apk add --no-cache --…   8.01MB    
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_LATEST_PATCH=4     0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_BASELINE=5.1       0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_VERSION=5.1.4      0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+<missing>      20 months ago    /bin/sh -c #(nop) ADD file:3db1e10ac5ebf1cb3…   5.32MB    
+➜  buildkite-plugin-tester git:(bats-1-8-2-no-faccessat-multi-arch-sha-docker-buildx) docker image history frankpengau/buildkite-plugin-tester:bats-1-8-2-no-faccessat2-multi-arch-sha-docker-build 
+IMAGE          CREATED          CREATED BY                                      SIZE      COMMENT
+21af5edfbd81   39 minutes ago   CMD ["bats" "tests/"]                           0B        buildkit.dockerfile.v0
+<missing>      39 minutes ago   ENTRYPOINT []                                   0B        buildkit.dockerfile.v0
+<missing>      39 minutes ago   WORKDIR /plugin                                 0B        buildkit.dockerfile.v0
+<missing>      39 minutes ago   ENV BATS_PLUGIN_PATH=/usr/local/lib/bats        0B        buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c if [[ -e /bin/bash ]]; then e…   0B        buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   152kB     buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   24.8kB    buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   104kB     buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c mkdir -p /usr/local/lib/bats/…   34.7kB    buildkit.dockerfile.v0
+<missing>      39 minutes ago   RUN /bin/sh -c apk --no-cache add ncurses cu…   2.55MB    buildkit.dockerfile.v0
+<missing>      2 months ago     ENTRYPOINT ["/tini" "--" "bash" "bats"]         0B        buildkit.dockerfile.v0
+<missing>      2 months ago     WORKDIR /code/                                  0B        buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   0B        buildkit.dockerfile.v0
+<missing>      2 months ago     COPY . /opt/bats/ # buildkit                    486kB     buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   18B       buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   34.7MB    buildkit.dockerfile.v0
+<missing>      2 months ago     RUN |2 TINI_VERSION=v0.19.0 TARGETPLATFORM=l…   2.34MB    buildkit.dockerfile.v0
+<missing>      2 months ago     COPY ./docker /tmp/docker # buildkit            7.35kB    buildkit.dockerfile.v0
+<missing>      2 months ago     ARG TARGETPLATFORM                              0B        buildkit.dockerfile.v0
+<missing>      2 months ago     ARG TINI_VERSION=v0.19.0                        0B        buildkit.dockerfile.v0
+<missing>      20 months ago    /bin/sh -c #(nop)  CMD ["bash"]                 0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENTRYPOINT ["docker-entry…   0B        
+<missing>      20 months ago    /bin/sh -c #(nop) COPY file:651b3bebeba8be91…   212B      
+<missing>      20 months ago    /bin/sh -c set -eux;   apk add --no-cache --…   8.01MB    
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_LATEST_PATCH=4     0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_BASELINE=5.1       0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  ENV _BASH_VERSION=5.1.4      0B        
+<missing>      20 months ago    /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+<missing>      20 months ago    /bin/sh -c #(nop) ADD file:3db1e10ac5ebf1cb3…   5.32MB    
+➜  buildkite-plugin-tester git:(bats-1-8-2-no-faccessat-multi-arch-sha-docker-buildx) 
+```
+
+
 # Resources
 - Docker Buildx Docs: https://docs.docker.com/engine/reference/commandline/buildx_build/
-
+- Docker Buildkit Docs: https://docs.docker.com/build/buildkit/
+    - LLB: Low Level Build
+    - Might relate to the buildkit error we got:
+        ```
+        failed to solve: rpc error: code = Unknown desc = failed to solve with frontend dockerfile.v0: failed to create LLB definition: rpc error: code = Unknown desc = error getting credentials - err: exit status 1, out: ``
+        ```
+    - Dockerfile Frontend
+- 
