@@ -16,9 +16,9 @@ RUN mkdir -p /usr/local/lib/bats/bats-assert \
     && printf 'source "%s"\n' "/usr/local/lib/bats/bats-assert/load.bash" >> /usr/local/lib/bats/load.bash \
     && rm -rf /tmp/bats-assert.tgz
 
-# Install lox's fork of bats-mock
+# Install frankpengau's fork of bats-mock
 RUN mkdir -p /usr/local/lib/bats/bats-mock \
-    && curl -sSL https://github.com/buildkite-plugins/bats-mock/archive/v2.1.0.tar.gz -o /tmp/bats-mock.tgz \
+    && curl -sSL https://github.com/frankpengau/bats-mock/archive/v2.1.1.tar.gz -o /tmp/bats-mock.tgz \
     && tar -zxf /tmp/bats-mock.tgz -C /usr/local/lib/bats/bats-mock --strip 1 \
     && printf 'source "%s"\n' "/usr/local/lib/bats/bats-mock/stub.bash" >> /usr/local/lib/bats/load.bash \
     && rm -rf /tmp/bats-mock.tgz
